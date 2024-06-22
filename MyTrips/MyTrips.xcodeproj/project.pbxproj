@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		59A303C92C26E89D0019C996 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303C82C26E89D0019C996 /* Destination.swift */; };
 		BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */; };
 		BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432CA2B41D633007BAAC6 /* StartTab.swift */; };
 		BB9432CD2B41D635007BAAC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9432CC2B41D635007BAAC6 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		59A303C82C26E89D0019C996 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		BB9432C52B41D633007BAAC6 /* MyTrips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTrips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsApp.swift; sourceTree = "<group>"; };
 		BB9432CA2B41D633007BAAC6 /* StartTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTab.swift; sourceTree = "<group>"; };
@@ -38,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59A303C72C26E8870019C996 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				59A303C82C26E89D0019C996 /* Destination.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BB9432BC2B41D633007BAAC6 = {
 			isa = PBXGroup;
 			children = (
@@ -61,6 +71,7 @@
 				BB9432CA2B41D633007BAAC6 /* StartTab.swift */,
 				BB9432DC2B41D7D8007BAAC6 /* My Trip Tab */,
 				BB9432DD2B41D7ED007BAAC6 /* Destinations Tab */,
+				59A303C72C26E8870019C996 /* Models */,
 				BB9432CC2B41D635007BAAC6 /* Assets.xcassets */,
 				BB9432D62B41D688007BAAC6 /* Launch Screen.storyboard */,
 				BB9432CE2B41D635007BAAC6 /* Preview Content */,
@@ -165,6 +176,7 @@
 			files = (
 				BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */,
 				BB9432DB2B41D76F007BAAC6 /* DestinationLocationsMapView.swift in Sources */,
+				59A303C92C26E89D0019C996 /* Destination.swift in Sources */,
 				BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */,
 				BB9432D92B41D747007BAAC6 /* TripMapView.swift in Sources */,
 			);
