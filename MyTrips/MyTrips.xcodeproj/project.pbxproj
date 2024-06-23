@@ -10,6 +10,8 @@
 		59A303C92C26E89D0019C996 /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303C82C26E89D0019C996 /* Destination.swift */; };
 		59A303CB2C26EBE90019C996 /* MTPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303CA2C26EBE90019C996 /* MTPlacemark.swift */; };
 		59A303CE2C28347A0019C996 /* DestinationPreviewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303CD2C28347A0019C996 /* DestinationPreviewSample.swift */; };
+		59A303D02C2849740019C996 /* DestinationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303CF2C2849730019C996 /* DestinationsListView.swift */; };
+		59A303D32C284FC40019C996 /* DestinationsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303D22C284FC40019C996 /* DestinationsListCell.swift */; };
 		BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */; };
 		BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432CA2B41D633007BAAC6 /* StartTab.swift */; };
 		BB9432CD2B41D635007BAAC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9432CC2B41D635007BAAC6 /* Assets.xcassets */; };
@@ -23,6 +25,8 @@
 		59A303C82C26E89D0019C996 /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
 		59A303CA2C26EBE90019C996 /* MTPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlacemark.swift; sourceTree = "<group>"; };
 		59A303CD2C28347A0019C996 /* DestinationPreviewSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationPreviewSample.swift; sourceTree = "<group>"; };
+		59A303CF2C2849730019C996 /* DestinationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsListView.swift; sourceTree = "<group>"; };
+		59A303D22C284FC40019C996 /* DestinationsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsListCell.swift; sourceTree = "<group>"; };
 		BB9432C52B41D633007BAAC6 /* MyTrips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTrips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsApp.swift; sourceTree = "<group>"; };
 		BB9432CA2B41D633007BAAC6 /* StartTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTab.swift; sourceTree = "<group>"; };
@@ -60,6 +64,15 @@
 				59A303CD2C28347A0019C996 /* DestinationPreviewSample.swift */,
 			);
 			path = Destination;
+			sourceTree = "<group>";
+		};
+		59A303D12C284FB10019C996 /* DestinationsList */ = {
+			isa = PBXGroup;
+			children = (
+				59A303CF2C2849730019C996 /* DestinationsListView.swift */,
+				59A303D22C284FC40019C996 /* DestinationsListCell.swift */,
+			);
+			path = DestinationsList;
 			sourceTree = "<group>";
 		};
 		BB9432BC2B41D633007BAAC6 = {
@@ -113,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				BB9432DA2B41D76F007BAAC6 /* DestinationLocationsMapView.swift */,
+				59A303D12C284FB10019C996 /* DestinationsList */,
 			);
 			path = "Destinations Tab";
 			sourceTree = "<group>";
@@ -189,8 +203,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */,
+				59A303D02C2849740019C996 /* DestinationsListView.swift in Sources */,
 				BB9432DB2B41D76F007BAAC6 /* DestinationLocationsMapView.swift in Sources */,
 				59A303C92C26E89D0019C996 /* Destination.swift in Sources */,
+				59A303D32C284FC40019C996 /* DestinationsListCell.swift in Sources */,
 				59A303CB2C26EBE90019C996 /* MTPlacemark.swift in Sources */,
 				BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */,
 				BB9432D92B41D747007BAAC6 /* TripMapView.swift in Sources */,

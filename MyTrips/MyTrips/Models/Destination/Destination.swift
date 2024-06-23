@@ -10,14 +10,14 @@ import MapKit
 
 @Model
 final class Destination {
-    var name: String?
+    var name: String
     var latitude: Double?
     var longitude: Double?
     var latitudeDelta: Double?
     var longitudeDelta: Double?
     @Relationship(deleteRule: .cascade) var placemarks: [MTPlacemark] = []
     
-    init(name: String? = nil,
+    init(name: String,
          latitude: Double? = nil,
          longitude: Double? = nil,
          latitudeDelta: Double? = nil,
