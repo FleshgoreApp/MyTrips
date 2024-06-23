@@ -7,6 +7,7 @@
 
 
 import SwiftUI
+import SwiftData
 
 @main
 struct MyTripsApp: App {
@@ -14,5 +15,6 @@ struct MyTripsApp: App {
         WindowGroup {
             StartTab()
         }
+        .modelContainer(for: Destination.self)
     }
 }
