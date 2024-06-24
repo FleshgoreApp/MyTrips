@@ -119,6 +119,7 @@ struct DestinationLocationsMapView: View {
             }
             .onSubmit {
                 Task {
+                    //TODO: Passing argument of non-sendable type 'ModelContext' into main actor-isolated context may introduce data races
                     await mapManager.searchPlaces(
                         modelContext,
                         searchText: searchText,
