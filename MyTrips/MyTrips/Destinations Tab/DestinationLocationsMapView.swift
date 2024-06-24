@@ -43,9 +43,15 @@ struct DestinationLocationsMapView: View {
         .navigationTitle("Destination")
         .toolbarTitleDisplayMode(.inline)
         .onAppear {
+            //TODO: ?
+            mapManager.removeSearchResults(modelContext)
+            
             if let region = destination.region {
                 cameraPosititon = .region(region)
             }
+        }
+        .onDisappear {
+            mapManager.removeSearchResults(modelContext)
         }
         .onMapCameraChange(frequency: .onEnd) { context in
             visibleRegion = context.region
