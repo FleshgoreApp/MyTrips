@@ -20,6 +20,7 @@ struct DestinationLocationsMapView: View {
     @State private var cameraPosititon: MapCameraPosition = .automatic
     @State private var visibleRegion: MKCoordinateRegion?
     @State private var searchText: String = ""
+    @State private var selectedPlacemark: MTPlacemark?
     @FocusState private var searchFieldFocus: Bool
     
     var destination: Destination
@@ -36,6 +37,13 @@ struct DestinationLocationsMapView: View {
         VStack(spacing: .zero) {
             topView
             map
+        }
+        .sheet(item: $selectedPlacemark) { selectedPlacemark in
+            LocationDetailView(
+                destination: destination,
+                selectedPlacemark: selectedPlacemark
+            )
+            .presentationDetents([.large])
         }
         .safeAreaInset(edge: .bottom) {
             searchView
@@ -93,16 +101,19 @@ struct DestinationLocationsMapView: View {
     }
     
     private var map: some View {
-        Map(position: $cameraPosititon) {
+        Map(position: $cameraPosititon, selection: $selectedPlacemark) {
             ForEach(listPlacemarks) { placemark in
-                if placemark.destination != nil {
-                    Marker(coordinate: placemark.coordinate) {
-                        Label(placemark.name, systemImage: "star")
+                Group {
+                    if placemark.destination != nil {
+                        Marker(coordinate: placemark.coordinate) {
+                            Label(placemark.name, systemImage: "star")
+                        }
+                        .tint(.yellow)
+                    } else {
+                        Marker(placemark.name, coordinate: placemark.coordinate)
                     }
-                    .tint(.yellow)
-                } else {
-                    Marker(placemark.name, coordinate: placemark.coordinate)
                 }
+                .tag(placemark)
             }
         }
     }
@@ -111,17 +122,19 @@ struct DestinationLocationsMapView: View {
         HStack {
             TextField("Search ...", text: $searchText)
                 .focused($searchFieldFocus)
-            .textFieldStyle(.roundedBorder)
-            .submitLabel(.search)
-            .overlay(alignment: .trailing) {
-                if searchFieldFocus {
-                    Button {
-                        searchText = ""
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .padding(.trailing, 5)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .textFieldStyle(.roundedBorder)
+                .submitLabel(.search)
+                .overlay(alignment: .trailing) {
+                    if searchFieldFocus {
+                        Button {
+                            searchText = ""
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .padding(.trailing, 5)
+                        }
                     }
-                }
             }
             .onSubmit {
                 Task {
@@ -132,6 +145,7 @@ struct DestinationLocationsMapView: View {
                         visibleRegion: visibleRegion
                     )
                     searchText = ""
+                    cameraPosititon = .automatic
                 }
             }
             

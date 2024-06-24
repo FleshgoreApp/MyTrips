@@ -13,6 +13,7 @@
 		59A303D02C2849740019C996 /* DestinationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303CF2C2849730019C996 /* DestinationsListView.swift */; };
 		59A303D32C284FC40019C996 /* DestinationsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303D22C284FC40019C996 /* DestinationsListCell.swift */; };
 		59A303D62C295FB10019C996 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303D52C295FB10019C996 /* MapManager.swift */; };
+		59A303DC2C29E93E0019C996 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303DB2C29E93E0019C996 /* LocationDetailView.swift */; };
 		BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */; };
 		BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432CA2B41D633007BAAC6 /* StartTab.swift */; };
 		BB9432CD2B41D635007BAAC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9432CC2B41D635007BAAC6 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		59A303CF2C2849730019C996 /* DestinationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsListView.swift; sourceTree = "<group>"; };
 		59A303D22C284FC40019C996 /* DestinationsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsListCell.swift; sourceTree = "<group>"; };
 		59A303D52C295FB10019C996 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		59A303DB2C29E93E0019C996 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
 		BB9432C52B41D633007BAAC6 /* MyTrips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTrips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsApp.swift; sourceTree = "<group>"; };
 		BB9432CA2B41D633007BAAC6 /* StartTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTab.swift; sourceTree = "<group>"; };
@@ -85,6 +87,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		59A303DA2C29E8E20019C996 /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				59A303DB2C29E93E0019C996 /* LocationDetailView.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
 		BB9432BC2B41D633007BAAC6 = {
 			isa = PBXGroup;
 			children = (
@@ -106,8 +116,9 @@
 			children = (
 				BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */,
 				BB9432CA2B41D633007BAAC6 /* StartTab.swift */,
-				BB9432DC2B41D7D8007BAAC6 /* My Trip Tab */,
-				BB9432DD2B41D7ED007BAAC6 /* Destinations Tab */,
+				BB9432DC2B41D7D8007BAAC6 /* MyTripTab */,
+				BB9432DD2B41D7ED007BAAC6 /* DestinationsTab */,
+				59A303DA2C29E8E20019C996 /* SharedViews */,
 				59A303C72C26E8870019C996 /* Models */,
 				59A303D42C295F810019C996 /* Services */,
 				BB9432CC2B41D635007BAAC6 /* Assets.xcassets */,
@@ -125,21 +136,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BB9432DC2B41D7D8007BAAC6 /* My Trip Tab */ = {
+		BB9432DC2B41D7D8007BAAC6 /* MyTripTab */ = {
 			isa = PBXGroup;
 			children = (
 				BB9432D82B41D747007BAAC6 /* TripMapView.swift */,
 			);
-			path = "My Trip Tab";
+			path = MyTripTab;
 			sourceTree = "<group>";
 		};
-		BB9432DD2B41D7ED007BAAC6 /* Destinations Tab */ = {
+		BB9432DD2B41D7ED007BAAC6 /* DestinationsTab */ = {
 			isa = PBXGroup;
 			children = (
 				BB9432DA2B41D76F007BAAC6 /* DestinationLocationsMapView.swift */,
 				59A303D12C284FB10019C996 /* DestinationsList */,
 			);
-			path = "Destinations Tab";
+			path = DestinationsTab;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +226,7 @@
 			files = (
 				BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */,
 				59A303D02C2849740019C996 /* DestinationsListView.swift in Sources */,
+				59A303DC2C29E93E0019C996 /* LocationDetailView.swift in Sources */,
 				BB9432DB2B41D76F007BAAC6 /* DestinationLocationsMapView.swift in Sources */,
 				59A303C92C26E89D0019C996 /* Destination.swift in Sources */,
 				59A303D32C284FC40019C996 /* DestinationsListCell.swift in Sources */,

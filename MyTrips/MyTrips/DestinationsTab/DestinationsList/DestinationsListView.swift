@@ -37,13 +37,11 @@ struct DestinationsListView: View {
         } label: {
             Image(systemName: "plus.circle.fill")
         }
-        .alert(
-            "Enter Destination Name",
-            isPresented: $newDestination) {
-                alertLabel
-            } message: {
-                Text("Create a new destination")
-            }
+        .alert("Enter Destination Name", isPresented: $newDestination) {
+            alertLabel
+        } message: {
+            Text("Create a new destination")
+        }
     }
     
     private var listView: some View {
@@ -75,9 +73,12 @@ struct DestinationsListView: View {
     private var alertLabel: some View {
         Group {
             TextField("Enter destination name", text: $destinationName)
+                .autocorrectionDisabled()
             Button("Ok") {
                 if !destinationName.isEmpty {
-                    let destination = Destination(name: destinationName)
+                    let name = destinationName
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
+                    let destination = Destination(name: name)
                     modelContext.insert(destination)
                     destinationName = ""
                     path.append(destination)
