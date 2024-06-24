@@ -68,8 +68,12 @@ struct LocationDetailView: View {
     
     private var nameAddressView: some View {
         VStack {
-            TextField("Name", text: $name)
-            TextField("address", text: $address, axis: .vertical)
+            Group {
+                TextField("Name", text: $name)
+                TextField("address", text: $address, axis: .vertical)
+            }
+            .animation(nil, value: isChanged)
+            .textFieldStyle(.roundedBorder)
             
             if isChanged {
                 Button("Update") {
@@ -82,7 +86,6 @@ struct LocationDetailView: View {
                 .buttonStyle(.borderedProminent)
             }
         }
-        .textFieldStyle(.roundedBorder)
         .animation(.spring, value: isChanged)
     }
     
