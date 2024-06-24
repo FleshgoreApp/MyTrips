@@ -13,6 +13,9 @@ import SwiftData
 struct DestinationLocationsMapView: View {
     @State private var cameraPosititon: MapCameraPosition = .automatic
     @State private var visibleRegion: MKCoordinateRegion?
+    @State private var searchText: String = ""
+    @FocusState private var searchFieldFocus: Bool
+    
     var destination: Destination
         
     var body: some View {
