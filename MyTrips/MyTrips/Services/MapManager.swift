@@ -9,15 +9,14 @@ import MapKit
 import SwiftData
 
 protocol MapManagerProtocol {
-    @MainActor static func searchPlaces(_ modelContext: ModelContext, searchText: String, visibleRegion: MKCoordinateRegion?) async
-    static func removeSearchResults(_ modelContext: ModelContext)
+    @MainActor func searchPlaces(_ modelContext: ModelContext, searchText: String, visibleRegion: MKCoordinateRegion?) async
+    func removeSearchResults(_ modelContext: ModelContext)
 }
 
-
-enum MapManager: MapManagerProtocol {
+struct MapManager: MapManagerProtocol {
     
     @MainActor
-    static func searchPlaces(_ modelContext: ModelContext, searchText: String, visibleRegion: MKCoordinateRegion?) async {
+    func searchPlaces(_ modelContext: ModelContext, searchText: String, visibleRegion: MKCoordinateRegion?) async {
         
         removeSearchResults(modelContext)
         
@@ -38,7 +37,7 @@ enum MapManager: MapManagerProtocol {
         }
     }
     
-    static func removeSearchResults(_ modelContext: ModelContext) {
+    func removeSearchResults(_ modelContext: ModelContext) {
         let searchPredicate = #Predicate<MTPlacemark> { $0.destination == nil }
         try? modelContext.delete(model: MTPlacemark.self, where: searchPredicate)
     }

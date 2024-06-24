@@ -11,17 +11,34 @@ import MapKit
 import SwiftData
 
 struct DestinationLocationsMapView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(filter: #Predicate<MTPlacemark> { $0.destination == nil })
+    private var searchPlacemarks: [MTPlacemark]
+    private var listPlacemarks: [MTPlacemark] {
+        searchPlacemarks + destination.placemarks
+    }
     @State private var cameraPosititon: MapCameraPosition = .automatic
     @State private var visibleRegion: MKCoordinateRegion?
     @State private var searchText: String = ""
     @FocusState private var searchFieldFocus: Bool
     
     var destination: Destination
+    private let mapManager: MapManagerProtocol
+    
+    init(destination: Destination,
+         mapManager: MapManagerProtocol = MapManager()
+    ) {
+        self.destination = destination
+        self.mapManager = mapManager
+    }
         
     var body: some View {
         VStack(spacing: .zero) {
             topView
             map
+        }
+        .safeAreaInset(edge: .bottom) {
+            searchView
         }
         .navigationTitle("Destination")
         .toolbarTitleDisplayMode(.inline)
@@ -71,13 +88,61 @@ struct DestinationLocationsMapView: View {
     
     private var map: some View {
         Map(position: $cameraPosititon) {
-            ForEach(destination.placemarks) { placemark in
-                Marker(coordinate: placemark.coordinate) {
-                    Label(placemark.name, systemImage: "star")
+            ForEach(listPlacemarks) { placemark in
+                if placemark.destination != nil {
+                    Marker(coordinate: placemark.coordinate) {
+                        Label(placemark.name, systemImage: "star")
+                    }
+                    .tint(.yellow)
+                } else {
+                    Marker(placemark.name, coordinate: placemark.coordinate)
                 }
-                .tint(.red)
             }
         }
+    }
+    
+    private var searchView: some View {
+        HStack {
+            TextField("Search ...", text: $searchText)
+                .focused($searchFieldFocus)
+            .textFieldStyle(.roundedBorder)
+            .submitLabel(.search)
+            .overlay(alignment: .trailing) {
+                if searchFieldFocus {
+                    Button {
+                        searchText = ""
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .padding(.trailing, 5)
+                    }
+                }
+            }
+            .onSubmit {
+                Task {
+                    await mapManager.searchPlaces(
+                        modelContext,
+                        searchText: searchText,
+                        visibleRegion: visibleRegion
+                    )
+                    searchText = ""
+                }
+            }
+            
+            if !searchPlacemarks.isEmpty {
+                Button {
+                    mapManager.removeSearchResults(modelContext)
+                } label: {
+                    Image(systemName: "mappin.slash.circle.fill")
+                        .imageScale(.large)
+                }
+                .foregroundStyle(.white)
+                .padding(8)
+                .background(.red)
+                .clipShape(.circle)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 10)
     }
 }
 
@@ -89,4 +154,5 @@ struct DestinationLocationsMapView: View {
     return NavigationStack {
         DestinationLocationsMapView(destination: destination)
     }
+    .modelContainer(Destination.preview)
 }
