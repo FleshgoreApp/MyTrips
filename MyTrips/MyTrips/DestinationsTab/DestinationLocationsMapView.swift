@@ -21,6 +21,7 @@ struct DestinationLocationsMapView: View {
     @State private var visibleRegion: MKCoordinateRegion?
     @State private var searchText: String = ""
     @State private var selectedPlacemark: MTPlacemark?
+    @State private var isManualMarker = false
     @FocusState private var searchFieldFocus: Bool
     
     var destination: Destination
@@ -32,13 +33,17 @@ struct DestinationLocationsMapView: View {
         self.destination = destination
         self.mapManager = mapManager
     }
-        
+    
     var body: some View {
         VStack(spacing: .zero) {
             topView
             map
         }
-        .sheet(item: $selectedPlacemark) { selectedPlacemark in
+        .sheet(item: $selectedPlacemark, onDismiss: {
+            if isManualMarker {
+                mapManager.removeSearchResults(modelContext)
+            }
+        }) { selectedPlacemark in
             LocationDetailView(
                 destination: destination,
                 selectedPlacemark: selectedPlacemark
@@ -46,7 +51,27 @@ struct DestinationLocationsMapView: View {
             .presentationDetents([.large])
         }
         .safeAreaInset(edge: .bottom) {
-            searchView
+            VStack {
+                Toggle(isOn: $isManualMarker) {
+                    Label(
+                        "Tap marker placement is: \(isManualMarker ? "ON" : "OFF")",
+                        systemImage: isManualMarker ? "mappin.circle" : "mappin.slash.circle"
+                    )
+                }
+                .fontWeight(.bold)
+                .toggleStyle(.button)
+                .background(.ultraThickMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .onChange(of: isManualMarker) {
+                    mapManager.removeSearchResults(modelContext)
+                }
+                
+                searchView.opacity(isManualMarker ? 0 : 1)
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 10)
+            .offset(y: isManualMarker ? 43 : 0)
+            .animation(.easeOut, value: isManualMarker)
         }
         .navigationTitle("Destination")
         .toolbarTitleDisplayMode(.inline)
@@ -80,7 +105,7 @@ struct DestinationLocationsMapView: View {
             } label: {
                 Text("Name")
             }
-
+            
             HStack {
                 Text("Adjust the map to set the region for your destination.")
                     .foregroundStyle(.secondary)
@@ -101,19 +126,47 @@ struct DestinationLocationsMapView: View {
     }
     
     private var map: some View {
-        Map(position: $cameraPosititon, selection: $selectedPlacemark) {
-            ForEach(listPlacemarks) { placemark in
-                Group {
-                    if placemark.destination != nil {
-                        Marker(coordinate: placemark.coordinate) {
-                            Label(placemark.name, systemImage: "star")
+        MapReader { proxy in
+            Map(position: $cameraPosititon, selection: $selectedPlacemark) {
+                ForEach(listPlacemarks) { placemark in
+                    if isManualMarker {
+                        if placemark.destination != nil {
+                            Marker(coordinate: placemark.coordinate) {
+                                Label(placemark.name, systemImage: "star")
+                            }
+                            .tint(.yellow)
+                        } else {
+                            Marker(placemark.name, coordinate: placemark.coordinate)
                         }
-                        .tint(.yellow)
                     } else {
-                        Marker(placemark.name, coordinate: placemark.coordinate)
+                        Group {
+                            if placemark.destination != nil {
+                                Marker(coordinate: placemark.coordinate) {
+                                    Label(placemark.name, systemImage: "star")
+                                }
+                                .tint(.yellow)
+                            } else {
+                                Marker(placemark.name, coordinate: placemark.coordinate)
+                            }
+                        }
+                        .tag(placemark)
                     }
                 }
-                .tag(placemark)
+            }
+            .onTapGesture { position in
+                if isManualMarker {
+                    if let coordinate = proxy.convert(position, from: .local) {
+                        let mtPlacemark = MTPlacemark(
+                            name: "",
+                            address: "",
+                            latitude: coordinate.latitude,
+                            longitude: coordinate.longitude
+                        )
+                        
+                        modelContext.insert(mtPlacemark)
+                        selectedPlacemark = mtPlacemark
+                    }
+                }
             }
         }
     }
@@ -135,19 +188,19 @@ struct DestinationLocationsMapView: View {
                                 .padding(.trailing, 5)
                         }
                     }
-            }
-            .onSubmit {
-                Task {
-                    //TODO: Passing argument of non-sendable type 'ModelContext' into main actor-isolated context may introduce data races
-                    await mapManager.searchPlaces(
-                        modelContext,
-                        searchText: searchText,
-                        visibleRegion: visibleRegion
-                    )
-                    searchText = ""
-                    cameraPosititon = .automatic
                 }
-            }
+                .onSubmit {
+                    Task {
+                        //TODO: Passing argument of non-sendable type 'ModelContext' into main actor-isolated context may introduce data races
+                        await mapManager.searchPlaces(
+                            modelContext,
+                            searchText: searchText,
+                            visibleRegion: visibleRegion
+                        )
+                        searchText = ""
+                        cameraPosititon = .automatic
+                    }
+                }
             
             if !searchPlacemarks.isEmpty {
                 Button {
@@ -162,8 +215,6 @@ struct DestinationLocationsMapView: View {
                 .clipShape(.circle)
             }
         }
-        .padding(.horizontal)
-        .padding(.bottom, 10)
     }
 }
 
