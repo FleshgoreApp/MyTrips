@@ -14,6 +14,8 @@
 		59A303D32C284FC40019C996 /* DestinationsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303D22C284FC40019C996 /* DestinationsListCell.swift */; };
 		59A303D62C295FB10019C996 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303D52C295FB10019C996 /* MapManager.swift */; };
 		59A303DC2C29E93E0019C996 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303DB2C29E93E0019C996 /* LocationDetailView.swift */; };
+		59A303DF2C3194B20019C996 /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303DE2C3194B20019C996 /* UIApplication+Extension.swift */; };
+		59A303E12C3195DD0019C996 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59A303E02C3195DD0019C996 /* LocationManager.swift */; };
 		BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */; };
 		BB9432CB2B41D633007BAAC6 /* StartTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9432CA2B41D633007BAAC6 /* StartTab.swift */; };
 		BB9432CD2B41D635007BAAC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9432CC2B41D635007BAAC6 /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		59A303D22C284FC40019C996 /* DestinationsListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsListCell.swift; sourceTree = "<group>"; };
 		59A303D52C295FB10019C996 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		59A303DB2C29E93E0019C996 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		59A303DE2C3194B20019C996 /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		59A303E02C3195DD0019C996 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BB9432C52B41D633007BAAC6 /* MyTrips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyTrips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9432C82B41D633007BAAC6 /* MyTripsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsApp.swift; sourceTree = "<group>"; };
 		BB9432CA2B41D633007BAAC6 /* StartTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTab.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				59A303D52C295FB10019C996 /* MapManager.swift */,
+				59A303E02C3195DD0019C996 /* LocationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -93,6 +98,14 @@
 				59A303DB2C29E93E0019C996 /* LocationDetailView.swift */,
 			);
 			path = SharedViews;
+			sourceTree = "<group>";
+		};
+		59A303DD2C31948E0019C996 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				59A303DE2C3194B20019C996 /* UIApplication+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BB9432BC2B41D633007BAAC6 = {
@@ -121,6 +134,7 @@
 				59A303DA2C29E8E20019C996 /* SharedViews */,
 				59A303C72C26E8870019C996 /* Models */,
 				59A303D42C295F810019C996 /* Services */,
+				59A303DD2C31948E0019C996 /* Extensions */,
 				BB9432CC2B41D635007BAAC6 /* Assets.xcassets */,
 				BB9432D62B41D688007BAAC6 /* Launch Screen.storyboard */,
 				BB9432CE2B41D635007BAAC6 /* Preview Content */,
@@ -234,7 +248,9 @@
 				59A303D62C295FB10019C996 /* MapManager.swift in Sources */,
 				BB9432C92B41D633007BAAC6 /* MyTripsApp.swift in Sources */,
 				BB9432D92B41D747007BAAC6 /* TripMapView.swift in Sources */,
+				59A303DF2C3194B20019C996 /* UIApplication+Extension.swift in Sources */,
 				59A303CE2C28347A0019C996 /* DestinationPreviewSample.swift in Sources */,
+				59A303E12C3195DD0019C996 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +387,7 @@
 				DEVELOPMENT_TEAM = RKV4UP49S6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need to know your location so you can plan your routes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -402,6 +419,7 @@
 				DEVELOPMENT_TEAM = RKV4UP49S6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Need to know your location so you can plan your routes.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

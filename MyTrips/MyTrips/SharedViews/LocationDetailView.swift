@@ -74,6 +74,7 @@ struct LocationDetailView: View {
             }
             .animation(nil, value: isChanged)
             .textFieldStyle(.roundedBorder)
+            .autocorrectionDisabled()
             
             if isChanged {
                 Button("Update") {
@@ -81,6 +82,7 @@ struct LocationDetailView: View {
                         .trimmingCharacters(in: .whitespacesAndNewlines)
                     selectedPlacemark?.address = address
                         .trimmingCharacters(in: .whitespacesAndNewlines)
+                    UIApplication.shared.endEditing()
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .buttonStyle(.borderedProminent)

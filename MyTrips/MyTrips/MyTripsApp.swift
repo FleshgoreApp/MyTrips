@@ -11,10 +11,17 @@ import SwiftData
 
 @main
 struct MyTripsApp: App {
+    @State private var locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            StartTab()
+            if locationManager.isAuthorized {
+                StartTab()
+            } else {
+                Text("Need to help user")
+            }
         }
         .modelContainer(for: Destination.self)
+        .environment(locationManager)
     }
 }
