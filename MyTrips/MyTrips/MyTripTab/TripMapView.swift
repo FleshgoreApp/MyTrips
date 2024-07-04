@@ -25,8 +25,26 @@ struct TripMapView: View {
                 .tint(.yellow)
             }
         }
+        .onAppear {
+            updateCameraPosition()
+        }
         .mapControls {
             MapUserLocationButton()
+        }
+    }
+    
+    private func updateCameraPosition() {
+        if let userLocation = locationManager.userLocation {
+            let userRegion = MKCoordinateRegion(
+                center: userLocation.coordinate,
+                span: .init(
+                    latitudeDelta: 0.15,
+                    longitudeDelta: 0.15
+                )
+            )
+            withAnimation {
+                cameraPosition = .region(userRegion)
+            }
         }
     }
 }
