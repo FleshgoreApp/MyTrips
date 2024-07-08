@@ -22,7 +22,6 @@ struct DestinationLocationsMapView: View {
     @State private var searchText: String = ""
     @State private var selectedPlacemark: MTPlacemark?
     @State private var isManualMarker = false
-    @FocusState private var searchFieldFocus: Bool
     
     var destination: Destination
     private let mapManager: MapManagerProtocol
@@ -65,8 +64,10 @@ struct DestinationLocationsMapView: View {
                 .onChange(of: isManualMarker) {
                     mapManager.removeSearchResults(modelContext)
                 }
+                .padding(.bottom, 4)
                 
-                searchView.opacity(isManualMarker ? 0 : 1)
+                searchView
+                    .opacity(isManualMarker ? 0 : 1)
             }
             .padding(.horizontal)
             .padding(.bottom, 10)
@@ -171,50 +172,31 @@ struct DestinationLocationsMapView: View {
         }
     }
     
+    @MainActor
     private var searchView: some View {
-        HStack {
-            TextField("Search ...", text: $searchText)
-                .focused($searchFieldFocus)
-                .autocorrectionDisabled()
-                .textInputAutocapitalization(.never)
-                .textFieldStyle(.roundedBorder)
-                .submitLabel(.search)
-                .overlay(alignment: .trailing) {
-                    if searchFieldFocus {
-                        Button {
-                            searchText = ""
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .padding(.trailing, 5)
-                        }
-                    }
+        SearchView(
+            searchText: $searchText,
+            trailingButtonShowed: !searchPlacemarks.isEmpty,
+            trailingButtonImageName: "mappin.slash.circle.fill",
+            placeholder: "Search ...",
+            onSubmit: {
+                Task {
+                    await mapManager.searchPlaces(
+                        modelContext,
+                        searchText: searchText,
+                        visibleRegion: visibleRegion
+                    )
+                    searchText = ""
+                    cameraPosititon = .automatic
                 }
-                .onSubmit {
-                    Task {
-                        //TODO: Passing argument of non-sendable type 'ModelContext' into main actor-isolated context may introduce data races
-                        await mapManager.searchPlaces(
-                            modelContext,
-                            searchText: searchText,
-                            visibleRegion: visibleRegion
-                        )
-                        searchText = ""
-                        cameraPosititon = .automatic
-                    }
-                }
-            
-            if !searchPlacemarks.isEmpty {
-                Button {
-                    mapManager.removeSearchResults(modelContext)
-                } label: {
-                    Image(systemName: "mappin.slash.circle.fill")
-                        .imageScale(.large)
-                }
-                .foregroundStyle(.white)
-                .padding(8)
-                .background(.red)
-                .clipShape(.circle)
+            },
+            onClear: {
+                searchText = ""
+            },
+            onTrailingButtonTapped: {
+                mapManager.removeSearchResults(modelContext)
             }
-        }
+        )
     }
 }
 
