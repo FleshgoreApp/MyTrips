@@ -33,7 +33,8 @@ struct TripMapView: View {
     var body: some View {
         map
             .sheet(item: $selectedPlacemark) { selectedPlacemark in
-                
+                LocationDetailView(selectedPlacemark: selectedPlacemark)
+                    .presentationDetents([.medium])
             }
             .onAppear {
                 updateCameraPosition()

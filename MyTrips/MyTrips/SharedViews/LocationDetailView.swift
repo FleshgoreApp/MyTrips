@@ -33,11 +33,15 @@ struct LocationDetailView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     
-                    nameAddressView
+                    if destination != nil {
+                        nameAddressView
+                    } else {
+                        placemarkDescriptionView
+                    }
                     
                     lookaroundSceneView
                     
-                    addRemoveButton
+                    bottomButtonsView
                 }
             }
         }
@@ -91,6 +95,25 @@ struct LocationDetailView: View {
         .animation(.spring, value: isChanged)
     }
     
+    private var placemarkDescriptionView: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Group {
+                Text(selectedPlacemark?.name ?? "Name")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                Text(selectedPlacemark?.address ?? "Address")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(2)
+                    .fixedSize(
+                        horizontal: false,
+                        vertical: true
+                    )
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
     @ViewBuilder
     private var lookaroundSceneView: some View {
         if let lookaroundScene {
@@ -103,7 +126,7 @@ struct LocationDetailView: View {
     }
     
     @ViewBuilder
-    private var addRemoveButton: some View {
+    private var bottomButtonsView: some View {
         if let destination {
             let inList = (selectedPlacemark != nil && selectedPlacemark?.destination != nil)
             
@@ -123,6 +146,26 @@ struct LocationDetailView: View {
             .tint(inList ? .red : .green)
             .frame(maxWidth: .infinity, alignment: .trailing)
             .disabled((name.isEmpty || isChanged))
+        } else {
+            HStack {
+                Button("Open in maps", systemImage: "map") {
+                    if let selectedPlacemark {
+                        let placemark = MKPlacemark(coordinate: selectedPlacemark.coordinate)
+                        let mapItem = MKMapItem(placemark: placemark)
+                        mapItem.name = selectedPlacemark.name
+                        mapItem.openInMaps()
+                    }
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                
+                Spacer()
+                
+                Button("Show Route", systemImage: "location.north") {
+                    
+                }
+                .fixedSize(horizontal: true, vertical: false)
+                .buttonStyle(.bordered)
+            }
         }
     }
     
